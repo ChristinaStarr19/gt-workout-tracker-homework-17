@@ -24,6 +24,13 @@ connection.on("connected", () => {
 connection.on("err", (err) => {
     console.log("Mongoose connections errot: ", err);
 })
+
+app.get("/api/config", (req, res) => {
+    res.json({
+        success:true,
+    })
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}!`);
 });
