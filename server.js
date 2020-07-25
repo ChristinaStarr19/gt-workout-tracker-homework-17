@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const app = express();
 
 const PORT = process.env.PORT || 8080;
 
-const app = express();
-
+//Middleware for post bodies
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -15,6 +15,15 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true ,useUnifiedTopology: true });
 
+const connection = mongoose.connection;
+
+connection.on("connected", () => {
+    console.log("Mongoose successfully connected.")
+})
+
+connection.on("err", (err) => {
+    console.log("Mongoose connections errot: ", err);
+})
 app.listen(PORT, () => {
-    console.log(`App running on port ${PORT}!`);
+    console.log(`Server is running on http://localhost:${PORT}!`);
 });
