@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const Workout = require("./models/workoutModel");
+// const Resistance = require("./models/resistanceModel");
+
 
 const PORT = process.env.PORT || 8080;
 
@@ -26,10 +29,14 @@ connection.on("err", (err) => {
 })
 
 app.get("/api/config", (req, res) => {
-    res.json({
-        success:true,
-    })
-})
+    Workout.find({}).then((foundWorkouts) => {
+        res.json({
+            success: true,
+            data: foundWorkouts,
+        });
+
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}!`);
