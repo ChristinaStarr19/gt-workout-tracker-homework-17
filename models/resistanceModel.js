@@ -19,14 +19,22 @@ const ResistanceSchema = new Schema({
 
     duration: {
         type: Number,
+        allowNull: false
     },
 
     weight: {
         type: Number,
+        allowNull: false
     },
 
     reps: {
         type: Number,
+        allowNull: false
+    },
+
+    sets: {
+        type: Number,
+        allowNull: false
     }
 
 
