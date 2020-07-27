@@ -38,7 +38,7 @@ app.put("/api/workouts/:id", (req, res) => {
 //Create a new workout
 app.post("/api/workouts", (req, res) => {
     
-    Workout.create(req.body).then(createdWorkout => {
+    db.Workout.create(req.body).then(createdWorkout => {
         res.json(createdWorkout)
     }).catch(err => {
         console.log(err);
