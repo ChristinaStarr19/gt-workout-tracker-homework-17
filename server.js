@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const Workout = require("./models/workoutModel");
+
 // const Resistance = require("./models/resistanceModel");
 
 
@@ -13,8 +13,8 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-// require("./routes/htmlRoutes.js")(app);
-// require("./routes/apiRoutes.js")(app);
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true ,useUnifiedTopology: true });
 
@@ -25,18 +25,9 @@ connection.on("connected", () => {
 })
 
 connection.on("err", (err) => {
-    console.log("Mongoose connections errot: ", err);
+    console.log("Mongoose connections error: ", err);
 })
 
-app.get("/api/config", (req, res) => {
-    Workout.find({}).then((foundWorkouts) => {
-        res.json({
-            success: true,
-            data: foundWorkouts,
-        });
-
-    });
-});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}!`);
